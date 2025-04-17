@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "1048075273721",
+    "project_id": "alpaspay",
+    "storage_bucket": "alpaspay.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1048075273721:android:cd9f7adb38a54707afe928",
+        "android_client_info": {
+          "package_name": "com.example.alpaspay"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC4utdh_OhSAHhHlumghWz4gOnXh1iJMAs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
