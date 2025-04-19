@@ -52,7 +52,8 @@
                     android:layout_margin="10dp"
                     android:hint="Email"
                     android:inputType="textEmailAddress"
-                    android:singleLine="true"/>
+                    android:singleLine="true"
+                    android:autofillHints="emailAddress"/>
 
                 <EditText
                     android:layout_width="match_parent"

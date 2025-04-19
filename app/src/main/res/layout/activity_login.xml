@@ -50,9 +50,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:layout_margin="10dp"
+                android:singleLine="true"
                 android:hint="Email"
                 android:inputType="textEmailAddress"
-                android:singleLine="true"/>
+                android:autofillHints="emailAddress"/>
 
             <EditText
                 android:layout_width="match_parent"
