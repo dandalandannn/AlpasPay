@@ -1,92 +1,169 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+<LinearLayout
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_gravity="center_horizontal"
     android:orientation="vertical"
-    android:background="@drawable/bg_halfcircle"
-    android:layout_gravity="center_vertical"
+    android:background="@drawable/bg_14circleup"
     tools:context=".Register">
 
     <TextView
         android:layout_width="wrap_content"
-        android:layout_height="213dp"
-        android:layout_gravity="center"
-        android:paddingTop="100dp"
+        android:layout_height="wrap_content"
+        android:paddingTop="20dp"
+        android:paddingBottom="50dp"
         android:text="AlpasPay"
+        android:layout_gravity="center"
         android:textColor="@color/white"
         android:textSize="50dp"
-        android:textStyle="bold" />
-
-    <androidx.cardview.widget.CardView
-        android:layout_width="match_parent"
+        android:textStyle="bold"/>
+    <TextView
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="30dp"
-        app:cardCornerRadius="20dp"
-        app:cardElevation="20dp"
-        android:background="@color/white">
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:orientation="vertical"
-                android:padding="24dp"
-                android:elevation="20dp">
+        android:text="Set up your first utility"
+        android:textStyle="bold"
+        android:textColor="@color/black"
+        android:paddingLeft="25dp"
+        android:paddingTop="10dp"
+        android:textSize="20sp"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="You can add more later."
+        android:textColor="@color/gray"
+        android:paddingLeft="25dp"
+        android:paddingRight="15dp"
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Register"
-                    android:textSize="20dp"
-                    android:textColor="@color/blue"
-                    android:textStyle="bold"
-                    android:textAlignment="center"
-                    />
+        android:paddingBottom="15dp"
+        />
 
-                <EditText
-                    android:id="@+id/signup_email"
-                    android:layout_width="match_parent"
-                    android:layout_height="40dp"
-                    android:layout_margin="10dp"
-                    android:hint="Email" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Choose a utility:"
+        android:textColor="@color/gray"
+        android:paddingLeft="25dp"
+        android:paddingRight="15dp"
+        />
 
-                <EditText
-                    android:layout_width="match_parent"
-                    android:layout_height="40dp"
-                    android:id="@+id/signup_password"
-                    android:layout_margin="10dp"
-                    android:hint="Password"
-                    android:inputType="textPassword"/>
-                <EditText
-                    android:layout_width="match_parent"
-                    android:layout_height="40dp"
-                    android:id="@+id/confirm_signup_password"
-                    android:layout_margin="10dp"
-                    android:hint="Confirm Password"
-                    android:inputType="textPassword"/>
+    <RadioGroup
+        android:id="@+id/options"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingLeft="20dp"
+        >
+        <RadioButton
+            android:id="@+id/radio_option1"
+            android:layout_width="95dp"
+            android:layout_height="wrap_content"
+            android:text="Kuryente" />
 
-                <Button
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:text="Sign up"
-                    android:layout_marginTop="20dp"
-                    android:background="@drawable/btn_rounded"
-                    android:textColor="@color/white"
-                    android:id="@+id/btn_signup"
-                    />
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:text="Already have an account? Login"
-                    android:gravity="center"
-                    android:layout_marginTop="20dp"
-                    android:layout_marginBottom="10dp"
-                    android:textColor="@color/blue"
-                    android:id="@+id/tologin"/>
+        <RadioButton
+            android:id="@+id/radio_option2"
+            android:layout_width="95dp"
+            android:layout_height="wrap_content"
+            android:text="Internet" />
 
-            </LinearLayout>
-    </androidx.cardview.widget.CardView>
+        <RadioButton
+            android:id="@+id/radio_option3"
+            android:layout_width="95dp"
+            android:layout_height="wrap_content"
+            android:text="Tubig" />
+    </RadioGroup>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Enter utility account ID:"
+        android:paddingLeft="25dp"
+        android:paddingTop="5dp"/>
+
+    <EditText
+        android:id="@+id/account_id"
+        android:layout_width="300dp"
+        android:layout_height="40dp"
+        android:layout_gravity="center"
+        android:layout_margin="5dp"
+        android:hint="Ex. 000 000 000 000"
+        android:inputType="number"
+        android:singleLine="true"
+        android:textSize="16sp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Enter name registered:"
+        android:paddingLeft="25dp"
+        android:paddingTop="5dp"/>
+
+    <EditText
+        android:id="@+id/account_name"
+        android:layout_width="300dp"
+        android:layout_height="40dp"
+        android:layout_margin="5dp"
+        android:layout_gravity="center"
+        android:hint="Ex. Dela Cruz, Juan A."
+        android:textSize="16sp"
+        android:singleLine="true"/>
+
+    <Button
+        android:id="@+id/btn_validID"
+        android:layout_width="300dp"
+        android:layout_height="40dp"
+        android:text="Upload a valid ID"
+        android:layout_gravity="center"
+        android:textColor="@color/black" />
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1" />
+
+    <TextView
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:justificationMode="inter_character"
+        android:paddingTop="5dp"
+        android:text="To verify your account, we need some of your information. We will ensure that your data is kept secure and used only for verification purposes."
+        android:textColor="@color/gray" />
+
+    <Button
+        android:id="@+id/btn_continueToSignUp"
+        android:layout_width="325dp"
+        android:layout_height="40dp"
+        android:text="Continue"
+        android:layout_gravity="center"
+        android:textColor="@color/white"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/btn_rounded_blue"
+        />
+
+    <TextView
+        android:id="@+id/btn_backToLogin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Cancel"
+        android:layout_gravity="center"
+        android:paddingTop="15dp"
+        android:paddingBottom="30dp"
+        android:textColor="@color/black"
+        android:textStyle="bold"
+        />
 
 </LinearLayout>
+    <ProgressBar
+        android:id="@+id/progressBar"
+        android:layout_width="80dp"
+        android:layout_height="72dp"
+        android:visibility="gone"
+        android:layout_gravity="center"
+        android:indeterminate="true" />
+</FrameLayout>
