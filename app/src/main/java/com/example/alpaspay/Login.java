@@ -6,6 +6,7 @@ import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.FrameLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -25,6 +26,7 @@ import com.google.firebase.auth.FirebaseUser;
 
 public class Login extends AppCompatActivity {
 
+    private FrameLayout loading;
     private FirebaseAuth auth;
     private EditText loginEmail, loginPass;
     private Button loginBtn;
@@ -40,6 +42,7 @@ public class Login extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+        loading = findViewById(R.id.loading);
 
         auth = FirebaseAuth.getInstance();
         loginEmail = findViewById(R.id.login_email);
@@ -56,6 +59,7 @@ public class Login extends AppCompatActivity {
 
                 if (!email.isEmpty() && Patterns.EMAIL_ADDRESS.matcher(email).matches()){
                 if(!pass.isEmpty()){
+                    loading.setVisibility(View.VISIBLE);
                     auth.signInWithEmailAndPassword(email, pass).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
@@ -66,8 +70,9 @@ public class Login extends AppCompatActivity {
                                     public void onSuccess(Void unused) {
                                         if (user.isEmailVerified()){
                                             Toast.makeText(getApplicationContext(), "Login Successful", Toast.LENGTH_SHORT).show();
-                                                startActivity(new Intent(Login.this, Home.class));
-                                                finish();
+                                            Intent i = new Intent(Login.this, Home.class);
+                                            startActivity(i);
+                                            finish();
                                         }else{
                                             Toast.makeText(getApplicationContext(), "Please verify your email first.", Toast.LENGTH_LONG).show();
                                             auth.signOut();
@@ -77,6 +82,7 @@ public class Login extends AppCompatActivity {
                             }else{
                                 Toast.makeText(getApplicationContext(), "User not found!", Toast.LENGTH_SHORT).show();
                             }
+                            loading.setVisibility(View.GONE);
                         }
                     });
                 } else {

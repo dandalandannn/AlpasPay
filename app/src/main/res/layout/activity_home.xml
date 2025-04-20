@@ -13,8 +13,8 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="AlpasPay"
-        android:layout_gravity="left"
+        android:text="@string/alpaspay"
+        android:layout_gravity="start"
         android:paddingTop="5dp"
         android:paddingLeft="20dp"
         android:textColor="@color/white"
@@ -26,12 +26,19 @@
         android:layout_height="wrap_content">
 
         <TextView
-            android:id="@+id/balance"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingLeft="30dp"
             android:paddingTop="5dp"
-            android:text="₱ 999,999.23"
+            android:text="₱ "
+            android:textColor="@color/white"
+            android:textSize="30sp" />
+        <TextView
+            android:id="@+id/balance"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingTop="5dp"
+            android:text="999,999.23"
             android:textColor="@color/white"
             android:textSize="30sp" />
 
@@ -157,9 +164,10 @@
                 android:padding="24dp">
 
             <TextView
+                android:id="@+id/utility1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Kuryente"
+                android:text=""
                 android:textSize="20dp"
                 android:textStyle="bold"/>
 

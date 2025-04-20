@@ -2,25 +2,40 @@ package com.example.alpaspay;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
-public class Home extends AppCompatActivity {
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
-    private TextView balanceTextView;
+public class Home extends AppCompatActivity {
+    FirebaseUser user;
+    String userID;
+    DatabaseReference ref;
+
+    private TextView balanceTextView, utilityTextView1;
     private TextView btnCashIn;
     private LinearLayout btnTransactions;
     private LinearLayout btnWithdraw;
     private LinearLayout btnAccountSettings;
     private LinearLayout btnHelpdesk;
+
+    private String balance;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,6 +46,34 @@ public class Home extends AppCompatActivity {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
+        });
+        utilityTextView1 = findViewById(R.id.utility1);
+
+        user = FirebaseAuth.getInstance().getCurrentUser();
+        userID = user.getUid();
+        ref = FirebaseDatabase.getInstance().getReference("Users").child(userID);
+
+        ref.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                String username = snapshot.child("username").getValue(String.class);
+
+                String utility = snapshot.child("utilities").child("1").child("utilityType").getValue(String.class);
+                utilityTextView1.setText(utility);
+
+                balance = snapshot.child("balance").getValue(String.class);
+                if (balance != null) {
+                    balanceTextView.setText(balance);
+                } else {
+                    balanceTextView.setText("0");
+                }
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
         });
 
         balanceTextView = findViewById(R.id.balance);

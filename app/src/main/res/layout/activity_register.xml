@@ -18,13 +18,13 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_gravity="center"
         android:paddingTop="20dp"
         android:paddingBottom="50dp"
-        android:text="AlpasPay"
-        android:layout_gravity="center"
+        android:text="@string/alpaspay"
         android:textColor="@color/white"
         android:textSize="50dp"
-        android:textStyle="bold"/>
+        android:textStyle="bold" />
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -41,11 +41,11 @@
         android:textColor="@color/gray"
         android:paddingLeft="25dp"
         android:paddingRight="15dp"
-
         android:paddingBottom="15dp"
         />
 
     <TextView
+        android:id="@+id/utilityPrompt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Choose a utility:"
@@ -80,6 +80,7 @@
             android:text="Tubig" />
     </RadioGroup>
     <TextView
+        android:id="@+id/accIdPrompt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Enter utility account ID:"
@@ -98,6 +99,7 @@
         android:textSize="16sp" />
 
     <TextView
+        android:id="@+id/namePrompt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Enter name registered:"
@@ -105,14 +107,24 @@
         android:paddingTop="5dp"/>
 
     <EditText
-        android:id="@+id/account_name"
+        android:id="@+id/firstNameField"
         android:layout_width="300dp"
         android:layout_height="40dp"
         android:layout_margin="5dp"
         android:layout_gravity="center"
-        android:hint="Ex. Dela Cruz, Juan A."
+        android:hint="First name"
         android:textSize="16sp"
         android:singleLine="true"/>
+    <EditText
+        android:id="@+id/lastNameField"
+        android:layout_width="300dp"
+        android:layout_height="40dp"
+        android:layout_margin="5dp"
+        android:layout_gravity="center"
+        android:hint="Last name"
+        android:textSize="16sp"
+        android:singleLine="true"/>
+
 
     <Button
         android:id="@+id/btn_validID"
@@ -130,6 +142,7 @@
         android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
+        android:textSize="10sp"
         android:justificationMode="inter_character"
         android:paddingTop="5dp"
         android:text="To verify your account, we need some of your information. We will ensure that your data is kept secure and used only for verification purposes."
@@ -153,17 +166,10 @@
         android:text="Cancel"
         android:layout_gravity="center"
         android:paddingTop="15dp"
-        android:paddingBottom="30dp"
+        android:paddingBottom="15dp"
         android:textColor="@color/black"
         android:textStyle="bold"
         />
 
 </LinearLayout>
-    <ProgressBar
-        android:id="@+id/progressBar"
-        android:layout_width="80dp"
-        android:layout_height="72dp"
-        android:visibility="gone"
-        android:layout_gravity="center"
-        android:indeterminate="true" />
 </FrameLayout>

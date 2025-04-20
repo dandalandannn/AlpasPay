@@ -9,6 +9,7 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.FrameLayout;
 import android.widget.ProgressBar;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -26,8 +27,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class Register extends AppCompatActivity {
-
-    private ProgressBar progressBar;
+    private TextView utilityPrompt, accIdPrompt, namePrompt;
 
     private RadioGroup rgroup;
     private int selectedID;
@@ -38,10 +38,12 @@ public class Register extends AppCompatActivity {
     private EditText accIDfield;
     private String accID;
     private String prettyAccID;
-    private EditText accNamefield;
-    private String accName;
+    private EditText firstNameField;
+    private EditText lastNameField;
+    private String firstName, lastName, accName;
     private Button btn_validID;
-    private Boolean cont;
+    private boolean cont;
+    private boolean accIdOk, fNameOk, lNameOk;
 
     private Animation shake;
     @Override
@@ -54,15 +56,17 @@ public class Register extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
-        progressBar = findViewById(R.id.progressBar);
+        utilityPrompt = findViewById(R.id.utilityPrompt);
+        accIdPrompt = findViewById(R.id.accIdPrompt);
+        namePrompt = findViewById(R.id.namePrompt);
 
-        prettyAccID = "";
         rgroup = findViewById(R.id.options);
         btnToSignup = findViewById(R.id.btn_continueToSignUp);
         btnLToLogin = findViewById(R.id.btn_backToLogin);
 
         accIDfield = findViewById(R.id.account_id);
-        accNamefield = findViewById(R.id.account_name);
+        firstNameField = findViewById(R.id.firstNameField);
+        lastNameField = findViewById(R.id.lastNameField);
         shake = AnimationUtils.loadAnimation(this, R.anim.shake);
         cont = false;
 
@@ -70,52 +74,74 @@ public class Register extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 cont = true;
+                selectedID = rgroup.getCheckedRadioButtonId();
                 accID = accIDfield.getText().toString().trim();
-                accName = accNamefield.getText().toString().trim();
-                if (accID.isEmpty() || accName.isEmpty()) {
+                firstName = firstNameField.getText().toString().trim();
+                lastName = lastNameField.getText().toString().trim();
+                accName = firstName + " " + lastName;
+                if (accID.isEmpty() || firstName.isBlank() || lastName.isBlank() || selectedID == -1) {
+
+                    if(accID.isEmpty()){
+                        shakeAccIDPrompt();
+                    }
+                    if (firstName.isBlank() || lastName.isBlank()) {
+                        shakeNamePrompt();
+                    }
+                    if (selectedID == -1){
+                        shakeUtilityPrompt();
+                    }
                     Toast.makeText(Register.this, "Please fill in all fields", Toast.LENGTH_SHORT).show();
                     return;
                 }
-                selectedID = rgroup.getCheckedRadioButtonId();
-                if (selectedID == -1) {
-                    Toast.makeText(Register.this, "Please select a utility option", Toast.LENGTH_SHORT).show();
-                    return;
-                }
-                selectedRadio = findViewById(selectedID);
-                utility = selectedRadio.getText().toString();
+
+                handleUtility();
+
+                //utility ID
                 if(accID.length() != 9){
-                    checkIDfield();
-                }else{
-                    for(int i = 0; i<accID.length(); i++){
-                        Log.d("haha", ""+ accID.charAt(i));
-                        prettyAccID += accID.charAt(i);
-                        if((i+1)%3==0){
-                            prettyAccID += " ";
-                        }
-                    }
-                    accIDfield.setText(prettyAccID);
+                    shakeAccIDField();
+                    accIdPrompt.setText("Invalid account ID");
+                    accIdPrompt.postDelayed(() -> accIdPrompt.setText("Enter utility account ID:"),1000);
                 }
-                if(containsNumber(accName)){
-                    accNamefield.startAnimation(shake);
-                    accNamefield.setTextColor(Color.RED);
-                    Toast.makeText(Register.this, "Name can't contain numbers!", Toast.LENGTH_SHORT).show();
+                //acc name
+                if (firstName.isBlank() && lastName.isBlank()) {
+                    namePrompt.setText("Name can't be blank");
+                    namePrompt.postDelayed(() -> namePrompt.setText("Enter name registered:"), 1000);
+                    shakeFirstNameField();
+                    shakeLastNameField();
                     cont = false;
-
-                    accNamefield.postDelayed(() -> accNamefield.setTextColor(Color.BLACK), 600);
+                }
+                if (!isValidName(firstName) && !isValidName(lastName)) {
+                    namePrompt.setText("Name can't contain special characters/numbers");
+                    namePrompt.postDelayed(() -> namePrompt.setText("Enter name registered:"), 1000);
+                    shakeFirstNameField();
+                    shakeLastNameField();
+                    cont = false;
+                } else if (!isValidName(firstName)) {
+                    namePrompt.setText("Invalid first name");
+                    namePrompt.postDelayed(() -> namePrompt.setText("Enter name registered:"), 1000);
+                    shakeFirstNameField();
+                    cont = false;
+                } else if (!isValidName(lastName)) {
+                    namePrompt.setText("Invalid last name");
+                    namePrompt.postDelayed(() -> namePrompt.setText("Enter name registered:"), 1000);
+                    shakeLastNameField();
+                    cont = false;
                 }
 
+                //all okay
                 if (cont){
-                    progressBar.setVisibility(View.VISIBLE);
-
-                    progressBar.postDelayed(new Runnable() {
-                        @Override
-                        public void run() {
-                            progressBar.setVisibility(View.GONE);
-                        }
-                    }, 2000);
-                    Intent i = new Intent(Register.this, Signin.class);
-                    startActivity(i);
                     Log.d("Anona", "Eto sha " + "\n" + utility+ "\n" + accID+ "\n" + accName);
+                    Intent i = new Intent(Register.this, Signin.class);
+                    i.putExtra("utility", utility);
+                    i.putExtra("accID", accID);
+                    i.putExtra("accName", accName);
+                    startActivity(i);
+                    finish();
+
+                }else{
+                    Toast.makeText(Register.this, "Unable register, contact Dan.", Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(Register.this, Login.class);
+                    startActivity(intent);
                     finish();
                 }
             }
@@ -128,18 +154,50 @@ public class Register extends AppCompatActivity {
             }
         });
     }
-    public void checkIDfield(){
+
+    private void handleUtility() {
+        selectedRadio = findViewById(selectedID);
+        utility = selectedRadio.getText().toString();
+    }
+    public boolean isValidName(String name) {
+        return name.matches("[a-zA-Z\\s]+");
+    }
+
+    public void shakeUtilityPrompt(){
+        utilityPrompt.startAnimation(shake);
+        utilityPrompt.setTextColor(Color.RED);
+        cont = false;
+        utilityPrompt.postDelayed(() -> utilityPrompt.setTextColor(Color.GRAY), 600);
+    }
+    public void shakeAccIDPrompt(){
+        accIdPrompt.startAnimation(shake);
+        accIdPrompt.setTextColor(Color.RED);
+        cont = false;
+        accIdPrompt.postDelayed(() -> accIdPrompt.setTextColor(Color.GRAY), 600);
+    }
+    public void shakeAccIDField(){
         accIDfield.startAnimation(shake);
         accIDfield.setTextColor(Color.RED);
-        Toast.makeText(Register.this, "Invalid ID!", Toast.LENGTH_SHORT).show();
         cont = false;
-
         accIDfield.postDelayed(() -> accIDfield.setTextColor(Color.BLACK), 600);
     }
-    public boolean containsNumber(String text) {
-        Pattern pattern = Pattern.compile(".*\\d.*");
-        Matcher matcher = pattern.matcher(text);
-        return matcher.matches();
+    public void shakeNamePrompt(){
+        namePrompt.startAnimation(shake);
+        namePrompt.setTextColor(Color.RED);
+        cont = false;
+        namePrompt.postDelayed(() -> namePrompt.setTextColor(Color.GRAY), 600);
+    }
+    public void shakeFirstNameField(){
+        firstNameField.startAnimation(shake);
+        firstNameField.setTextColor(Color.RED);
+        cont = false;
+        firstNameField.postDelayed(() -> firstNameField.setTextColor(Color.BLACK), 600);
+    }
+    public void shakeLastNameField(){
+        lastNameField.startAnimation(shake);
+        lastNameField.setTextColor(Color.RED);
+        cont = false;
+        lastNameField.postDelayed(() -> lastNameField.setTextColor(Color.BLACK), 600);
     }
         @Override
     public void onBackPressed() {

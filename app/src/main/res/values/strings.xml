@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">AlpasPay</string>
     <string name="log_in">Log in</string>
+    <string name="alpaspay">AlpasPay</string>
 </resources>
