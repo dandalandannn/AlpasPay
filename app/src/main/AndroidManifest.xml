@@ -13,6 +13,12 @@
         android:theme="@style/Theme.AlpasPay"
         tools:targetApi="31">
         <activity
+            android:name=".Receipt"
+            android:exported="false" />
+        <activity
+            android:name=".PayNow"
+            android:exported="false" />
+        <activity
             android:name=".CashIn"
             android:exported="false" />
         <activity

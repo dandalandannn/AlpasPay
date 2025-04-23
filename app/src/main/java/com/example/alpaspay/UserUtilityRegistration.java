@@ -1,21 +1,21 @@
 package com.example.alpaspay;
 
 public class UserUtilityRegistration {
-    private String utilityType;
+    private String utilityTypeID;
     private String utilityAccID;
     private String utilityAccName;
 
-    public UserUtilityRegistration(String utilityType, String utilityAccID, String utilityAccName) {
-        this.utilityType = utilityType;
+    public UserUtilityRegistration(String utilityTypeID, String utilityAccID, String utilityAccName) {
+        this.utilityTypeID = utilityTypeID;
         this.utilityAccID = utilityAccID;
         this.utilityAccName = utilityAccName;
     }
-    public String getUtilityType() {
-        return utilityType;
+    public String getUtilityTypeID() {
+        return utilityTypeID;
     }
 
-    public void setUtilityType(String utilityAccID) {
-        this.utilityType = utilityType;
+    public void setUtilityTypeID(String utilityAccID) {
+        this.utilityTypeID = utilityTypeID;
     }
     public String getUtilityAccID() {
         return utilityAccID;

@@ -137,14 +137,7 @@ public class Register extends AppCompatActivity {
                     i.putExtra("accName", accName);
                     startActivity(i);
                     finish();
-
-                }else{
-                    Toast.makeText(Register.this, "Unable register, contact Dan.", Toast.LENGTH_SHORT).show();
-                    Intent intent = new Intent(Register.this, Login.class);
-                    startActivity(intent);
-                    finish();
-                }
-            }
+            }}
         });
         btnLToLogin.setOnClickListener(new View.OnClickListener() {
             @Override

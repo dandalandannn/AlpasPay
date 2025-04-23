@@ -139,7 +139,7 @@
                     usern
             );
             UserUtilityRegistration userUtilityRegistration = new UserUtilityRegistration(
-                    utilityType,
+                    utilityTypeID,
                     utilityAccID,
                     utilityAccName
             );
@@ -147,7 +147,7 @@
             DatabaseReference databaseRef = FirebaseDatabase.getInstance().getReference("Users");
             DatabaseReference userRef = databaseRef.child(uid);
             userRef.setValue(userRegistration);
-            userRef.child("Utilities").child(utilityTypeID).setValue(userUtilityRegistration)
+            userRef.child("Utilities").child(utilityType).setValue(userUtilityRegistration)
                     .addOnFailureListener(e -> {
                         Toast.makeText(getApplicationContext(), "Failed to save registration data: " + e.getMessage(), Toast.LENGTH_SHORT).show();
                     });
