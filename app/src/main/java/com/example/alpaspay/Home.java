@@ -1,14 +1,21 @@
 package com.example.alpaspay;
 
 import android.content.Intent;
+import android.database.DataSetObserver;
 import android.os.Bundle;
+import android.text.Layout;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ListAdapter;
+import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
@@ -25,22 +32,29 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.text.DecimalFormat;
+import java.util.ArrayList;
+
 public class Home extends AppCompatActivity {
     FirebaseUser user;
     String userID;
     DatabaseReference ref;
+    private FrameLayout logOutCardView;
+    private TextView btnLogoutYes,btnLogOutNo;
+    private TextView balanceTextView;
 
-    private TextView balanceTextView, utility1, utility2, utility3;
     private TextView btnCashIn;
     private LinearLayout btnTransactions;
     private LinearLayout btnWithdraw;
     private LinearLayout btnAccountSettings;
     private LinearLayout btnHelpdesk;
-    private Button btnPayNow1, btnPayNow2, btnPayNow3;
-
     private String balance;
-    private String utilityAcc1, utilityAcc2, utilityAcc3;
-    private String utilityAccID1, utilityAccID2, utilityAccID3;
+
+    ArrayList<DueCardObj> dueCardObjs = new ArrayList<>();
+    private ListView dueList;
+    private Button btnDueCardPayNow;
+    private DueCardListAdapter dueCardListAdapter;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,17 +66,18 @@ public class Home extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+        logOutCardView = findViewById(R.id.logOutCardView);
+        btnLogOutNo = findViewById(R.id.btnLogOutNo);
+        btnLogoutYes = findViewById(R.id.btnLogoutYes);
 
-        btnPayNow1 = findViewById(R.id.btnDueCardPayNow1);
-        btnPayNow2 = findViewById(R.id.btnDueCardPayNow2);
-        btnPayNow3 = findViewById(R.id.btnDueCardPayNow3);
-        utility1 = findViewById(R.id.utility1);
         balanceTextView = findViewById(R.id.balance);
         btnCashIn = findViewById(R.id.btn_cashin);
         btnTransactions = findViewById(R.id.btn_transactions);
         btnWithdraw = findViewById(R.id.btn_withraw);
         btnAccountSettings = findViewById(R.id.btn_account_settings);
         btnHelpdesk = findViewById(R.id.btn_helpdesk);
+
+        dueList = findViewById(R.id.dueList);
 
         user = FirebaseAuth.getInstance().getCurrentUser();
         if (user != null) {
@@ -73,78 +88,125 @@ public class Home extends AppCompatActivity {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
 
-                    String username = snapshot.child("username").getValue(String.class);
-                    String utilityUna = snapshot.child("Utilities").child("1").child("utilityType").getValue(String.class);
-                    utility1.setText(utilityUna);
-                    String utilityTwo = snapshot.child("Utilities").child("2").child("utilityType").getValue(String.class);
-                    utility2.setText(utilityTwo);
-                    String utilityThree = snapshot.child("Utilities").child("3").child("utilityType").getValue(String.class);
-                    utility3.setText(utilityThree);
-
-                    utilityAcc1 = snapshot.child("Utilities").child("1").child("utilityAccName").getValue(String.class);
-                    utilityAcc2 = snapshot.child("Utilities").child("2").child("utilityAccName").getValue(String.class);
-                    utilityAcc3 = snapshot.child("Utilities").child("3").child("utilityAccName").getValue(String.class);
-
-                    utilityAccID1 = snapshot.child("Utilities").child("1").child("utilityAccID").getValue(String.class);
-                    utilityAccID2 = snapshot.child("Utilities").child("2").child("utilityAccID").getValue(String.class);
-                    utilityAccID3 = snapshot.child("Utilities").child("3").child("utilityAccID").getValue(String.class);
-
                     balance = snapshot.child("balance").getValue(String.class);
                     if (balance == null || balance.trim().isEmpty()) {
                         balance = "0";
                     }
                     balanceTextView.setText(balance);
-                }
 
+                    int numberOfChildren = (int) snapshot.child("Utilities").getChildrenCount();
+                    Toast.makeText(getApplicationContext(), "Number of children" + numberOfChildren, Toast.LENGTH_SHORT).show();
+                    dueCardObjs.clear();
+
+                    for (int i = 1; i <= 3; i++) {
+                        String utilityType = snapshot.child("Utilities").child(String.valueOf(i)).child("utilityType").getValue(String.class);
+                        String utilityAccName = snapshot.child("Utilities").child(String.valueOf(i)).child("utilityAccName").getValue(String.class);
+                        String utilityAccID = snapshot.child("Utilities").child(String.valueOf(i)).child("utilityAccID").getValue(String.class);
+                        String dueCardAmount = snapshot.child("Utilities").child(String.valueOf(i)).child("dueCardAmount").getValue(String.class);
+                        String dueCardDueDate = snapshot.child("Utilities").child(String.valueOf(i)).child("dueDate").getValue(String.class);
+
+                        if (utilityType != null) {
+                            DueCardObj dueCardObj = new DueCardObj(utilityType, dueCardAmount, dueCardDueDate, balance, utilityAccID, utilityAccName);
+                            dueCardObjs.add(dueCardObj);
+                        }
+                        dueCardListAdapter = new DueCardListAdapter(Home.this, dueCardObjs);
+                        dueList.setAdapter(dueCardListAdapter);
+                        
+                        ListAdapter listAdapter = new ListAdapter() {
+                            @Override
+                            public boolean areAllItemsEnabled() {
+                                return false;
+                            }
+
+                            @Override
+                            public boolean isEnabled(int position) {
+                                return false;
+                            }
+
+                            @Override
+                            public void registerDataSetObserver(DataSetObserver observer) {
+
+                            }
+
+                            @Override
+                            public void unregisterDataSetObserver(DataSetObserver observer) {
+
+                            }
+
+                            @Override
+                            public int getCount() {
+                                return 0;
+                            }
+
+                            @Override
+                            public Object getItem(int position) {
+                                return null;
+                            }
+
+                            @Override
+                            public long getItemId(int position) {
+                                return 0;
+                            }
+
+                            @Override
+                            public boolean hasStableIds() {
+                                return false;
+                            }
+
+                            @Override
+                            public View getView(int position, View convertView, ViewGroup parent) {
+                                return null;
+                            }
+
+                            @Override
+                            public int getItemViewType(int position) {
+                                return 0;
+                            }
+
+                            @Override
+                            public int getViewTypeCount() {
+                                return 0;
+                            }
+
+                            @Override
+                            public boolean isEmpty() {
+                                return false;
+                            }
+
+                        };
+                    }
+                }
                 @Override
                 public void onCancelled(@NonNull DatabaseError error) {
                     Log.e("HomeActivity", "Data fetch failed: " + error.getMessage());
                 }
             });
         }
-        btnPayNow1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent i = new Intent(Home.this, PayNow.class);
-                i.putExtra("UtilityName", utility1.getText().toString());
-                i.putExtra("UtilityAcc", utilityAcc1);
-                i.putExtra("UtilityAccID", utilityAccID1);
-                startActivity(i);
-                finish();
-            }
-        });
-        btnPayNow2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent i = new Intent(Home.this, PayNow.class);
-                i.putExtra("UtilityName", utility2.getText().toString());
-                i.putExtra("UtilityAcc", utilityAcc2);
-                i.putExtra("UtilityAccID", utilityAccID2);
-                startActivity(i);
-                finish();
-            }
-        });
-        btnPayNow3.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent i = new Intent(Home.this, PayNow.class);
-                i.putExtra("UtilityName", utility3.getText().toString());
-                i.putExtra("UtilityAcc", utilityAcc3);
-                i.putExtra("UtilityAccID", utilityAccID3);
-                startActivity(i);
-                finish();
-            }
-        });
 
         btnCashIn.setOnClickListener(v -> handleCashIn());
         btnTransactions.setOnClickListener(v -> handleTransaction());
         btnWithdraw.setOnClickListener(v -> handleWithraw());
         btnAccountSettings.setOnClickListener(v -> handleAccSettings());
         btnHelpdesk.setOnClickListener(v -> handleHelpDesk());
+
+        btnLogoutYes.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(Home.this, Login.class));
+                finish();
+            }
+        });
+        btnLogOutNo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                logOutCardView.setVisibility(View.GONE);
+            }
+        });
     }
 
     private void handleCashIn() {
         startActivity(new Intent(Home.this, CashIn.class));
+        finish();
     }
 
     private void handleTransaction() {
@@ -152,7 +214,9 @@ public class Home extends AppCompatActivity {
     }
 
     private void handleWithraw() {
-        startActivity(new Intent(Home.this, WithrawActivity.class));
+        Intent i = new Intent(Home.this, WithrawActivity.class);
+        i.putExtra("balance", balance);
+        startActivity(i);
     }
 
     private void handleAccSettings() {
@@ -161,5 +225,9 @@ public class Home extends AppCompatActivity {
 
     private void handleHelpDesk() {
         startActivity(new Intent(Home.this, HelpDesk.class));
+    }
+
+    public void onBackPressed() {
+        logOutCardView.setVisibility(View.VISIBLE);
     }
 }

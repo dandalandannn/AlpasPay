@@ -3,6 +3,7 @@ package com.example.alpaspay;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
 import android.view.animation.Animation;
@@ -44,6 +45,7 @@ public class Register extends AppCompatActivity {
     private Button btn_validID;
     private boolean cont;
     private boolean accIdOk, fNameOk, lNameOk;
+    private static final int PICK_IMAGE_REQUEST = 1;
 
     private Animation shake;
     @Override
@@ -69,6 +71,15 @@ public class Register extends AppCompatActivity {
         lastNameField = findViewById(R.id.lastNameField);
         shake = AnimationUtils.loadAnimation(this, R.anim.shake);
         cont = false;
+
+        btn_validID = findViewById(R.id.btn_validID);
+        btn_validID.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                startActivityForResult(intent, PICK_IMAGE_REQUEST);
+            }
+        });
 
         btnToSignup.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -2,4 +2,5 @@
     <string name="app_name">AlpasPay</string>
     <string name="log_in">Log in</string>
     <string name="alpaspay">AlpasPay</string>
+    <string name="email_placeholder_com">email@placeholder.com</string>
 </resources>

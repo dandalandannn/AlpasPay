@@ -32,7 +32,7 @@
         android:layout_margin="30dp"
         app:cardCornerRadius="20dp"
         app:cardElevation="20dp"
-        android:background="@color/white">>
+        android:background="@color/white">
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

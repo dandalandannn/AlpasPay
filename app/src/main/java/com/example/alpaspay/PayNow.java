@@ -14,8 +14,10 @@ import androidx.core.view.WindowInsetsCompat;
 
 public class PayNow extends AppCompatActivity {
 
-    private TextView utilityNameTextView, utilityNameTextViewInside, remainingBalanceTV, AccNumTV,AccNameTV;
+    private TextView utilityTypeTV, utilityTypeInsideTV, balanceTV, AccNumTV, AccNameTV, DueDateTV, AmountTV;
     private Button btnConfirmPayment;
+
+    String utilityType, dueCardAmount, dueCardDueDate, balance, utilityAccID, utilityAccName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,24 +29,34 @@ public class PayNow extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
-        utilityNameTextView = findViewById(R.id.utilityNameTextView);
-        utilityNameTextViewInside = findViewById(R.id.utilityNameTextViewInside);
-        remainingBalanceTV = findViewById(R.id.remainingBalanceTV);
+        utilityTypeTV = findViewById(R.id.utilityTypeTV);
+        utilityTypeInsideTV = findViewById(R.id.utilityTypeInsideTV);
+        balanceTV = findViewById(R.id.balanceTV);
+
+        DueDateTV = findViewById(R.id.DueDateTV);
         AccNumTV = findViewById(R.id.AccNumTV);
         AccNameTV = findViewById(R.id.AccNameTV);
+        AmountTV = findViewById(R.id.AmountTV);
 
         btnConfirmPayment = findViewById(R.id.btnConfirmPayment);
 
-        String utilityName = getIntent().getStringExtra("UtilityName");
-        String utilityAcc = getIntent().getStringExtra("UtilityAcc");
-        String utilityAccID = getIntent().getStringExtra("UtilityAccID");
-        String remainingBalance = getIntent().getStringExtra("RemainingBalance");
 
-        utilityNameTextView.setText(utilityName);
-        utilityNameTextViewInside.setText(utilityName);
-        AccNameTV.setText(utilityAcc);
+        Intent intent = getIntent();
+        utilityType = intent.getStringExtra("utilityType");
+        dueCardAmount = intent.getStringExtra("dueCardAmount");
+        dueCardDueDate = intent.getStringExtra("dueCardDueDate");
+
+        balance = intent.getStringExtra("balance");
+        utilityAccID = intent.getStringExtra("utilityAccID");
+        utilityAccName = intent.getStringExtra("utilityAccName");
+
+        utilityTypeTV.setText(utilityType);
+        utilityTypeInsideTV.setText(utilityType);
+        balanceTV.setText(balance);
         AccNumTV.setText(utilityAccID);
-        //remainingBalanceTV.setText(remainingBalance);
+        AccNameTV.setText(utilityAccName);
+        DueDateTV.setText(dueCardDueDate);
+        AmountTV.setText(dueCardAmount);
 
         btnConfirmPayment.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -55,6 +67,13 @@ public class PayNow extends AppCompatActivity {
     }
     private void handleConfirmPayment() {
         Intent i = new Intent(PayNow.this, Receipt.class);
+        i.putExtra("utilityType", utilityType);
+        i.putExtra("dueCardAmount", dueCardAmount);
+        i.putExtra("dueCardDueDate", dueCardDueDate);
+        i.putExtra("balance", balance);
+        i.putExtra("utilityAccID", utilityAccID);
+        i.putExtra("utilityAccName", utilityAccName);
+
         startActivity(i);
         finish();
     }

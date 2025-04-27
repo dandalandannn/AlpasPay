@@ -1,22 +1,35 @@
 package com.example.alpaspay;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+
 public class UserUtilityRegistration {
-    private String utilityTypeID;
+    private String utilityType;
     private String utilityAccID;
     private String utilityAccName;
+    private int dueDay;
+    private String dueDate;
 
-    public UserUtilityRegistration(String utilityTypeID, String utilityAccID, String utilityAccName) {
-        this.utilityTypeID = utilityTypeID;
-        this.utilityAccID = utilityAccID;
+    public UserUtilityRegistration() {
+    }
+
+
+    public UserUtilityRegistration(String utilityType, String utilityAccID, String utilityAccName, int dueDay) {
+        this.utilityType = utilityType;
         this.utilityAccName = utilityAccName;
-    }
-    public String getUtilityTypeID() {
-        return utilityTypeID;
+        this.utilityAccID = utilityAccID;
+        this.dueDay = dueDay;
+        this.dueDate = calculateDueDate();
     }
 
-    public void setUtilityTypeID(String utilityAccID) {
-        this.utilityTypeID = utilityTypeID;
+    public String getUtilityType() {
+        return utilityType;
     }
+
+    public void setUtilityType(String utilityType) {
+        this.utilityType = utilityType;
+    }
+
     public String getUtilityAccID() {
         return utilityAccID;
     }
@@ -31,5 +44,35 @@ public class UserUtilityRegistration {
 
     public void setUtilityAccName(String utilityAccName) {
         this.utilityAccName = utilityAccName;
+    }
+
+    public int getDueDay() {
+        return dueDay;
+    }
+
+    public void setDueDay(int dueDay) {
+        this.dueDay = dueDay;
+    }
+
+    public String getDueDate() {
+        return dueDate;
+    }
+
+    public void setDueDate(String dueDate) {
+        this.dueDate = dueDate;
+    }
+
+    public String calculateDueDate() {
+        LocalDate currentDate = LocalDate.now();
+        LocalDate newDate = currentDate;
+
+        if (currentDate.getDayOfMonth() > dueDay) {
+            newDate = currentDate.plusMonths(1);
+        }
+
+        newDate = newDate.withDayOfMonth(dueDay);
+
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM-dd-yyyy");
+        return newDate.format(formatter);
     }
 }

@@ -195,11 +195,14 @@
                        <TextView
                            android:layout_width="wrap_content"
                            android:layout_height="wrap_content"
-                           android:text="Ref. No."/>
+                           android:text="Ref. No."
+                           android:textSize="12sp"/>
                        <TextView
+                           android:id="@+id/dateStamp"
                            android:layout_width="wrap_content"
                            android:layout_height="wrap_content"
                            android:text="dd/mm/yyyy"
+                           android:textSize="12sp"
                            android:paddingRight="10sp"/>
                    </LinearLayout>
                     <LinearLayout
@@ -211,12 +214,14 @@
                             android:id="@+id/ReceiptRef"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="123456789"/>
+                            android:text="123456789"
+                            android:textSize="12sp"/>
                         <TextView
-                            android:id="@+id/ReceiptDate"
+                            android:id="@+id/timeStamp"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="mm/dd/yyyy"/>
+                            android:text="mm/dd/yyyy"
+                            android:textSize="12sp"/>
                     </LinearLayout>
 
 

@@ -2,6 +2,7 @@
 
     import android.content.Intent;
     import android.os.Bundle;
+    import android.util.Log;
     import android.util.Patterns;
     import android.view.View;
     import android.widget.Button;
@@ -133,26 +134,42 @@
 
         private void createData(FirebaseUser user) {
             String uid = user.getUid();
+
             String usern = user.getEmail();
 
             UserRegistration userRegistration = new UserRegistration(
-                    usern
+                    usern,
+                    "0"
             );
+
+            Log.d("CreateData", "Created UserRegistration object");
+
             UserUtilityRegistration userUtilityRegistration = new UserUtilityRegistration(
-                    utilityTypeID,
+                    utilityType,
                     utilityAccID,
-                    utilityAccName
+                    utilityAccName,
+                    15
             );
+
+            Log.d("CreateData", "Created UserUtilityRegistration object");
 
             DatabaseReference databaseRef = FirebaseDatabase.getInstance().getReference("Users");
             DatabaseReference userRef = databaseRef.child(uid);
-            userRef.setValue(userRegistration);
-            userRef.child("Utilities").child(utilityType).setValue(userUtilityRegistration)
+
+            userRef.setValue(userRegistration)
                     .addOnFailureListener(e -> {
-                        Toast.makeText(getApplicationContext(), "Failed to save registration data: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                        Log.e("CreateData", "Failed to save user data: " + e.getMessage());
+                        Toast.makeText(getApplicationContext(), "Failed to save registration data", Toast.LENGTH_SHORT).show();
                     });
 
+            userRef.child("Utilities").child(utilityTypeID).setValue(userUtilityRegistration)
+                    .addOnFailureListener(e -> {
+                        Log.e("CreateData", "Failed to save utility data: " + e.getMessage());
+                        Toast.makeText(getApplicationContext(), "Failed to save utility data", Toast.LENGTH_SHORT).show();
+                    });
         }
+
+
 
         public boolean securedPass(String pass, String cpass) {
             if (!pass.equals(cpass)) {

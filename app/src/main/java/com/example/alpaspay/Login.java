@@ -71,8 +71,9 @@ public class Login extends AppCompatActivity {
                                         if (user.isEmailVerified()){
                                             Toast.makeText(getApplicationContext(), "Login Successful", Toast.LENGTH_SHORT).show();
                                             Intent i = new Intent(Login.this, Home.class);
-                                            startActivity(i);
+                                            loginPass.setText("");
                                             finish();
+                                            startActivity(i);
                                         }else{
                                             Toast.makeText(getApplicationContext(), "Please verify your email first.", Toast.LENGTH_LONG).show();
                                             auth.signOut();
