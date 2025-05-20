@@ -31,13 +31,15 @@ public class CashIn extends AppCompatActivity {
     private LinearLayout AmountLayout;
     private TextView emailTV,AmountTV;
     private EditText amountEdit;
-    private int amount;
+    private double amount;
     private boolean naH;
 
     private FirebaseUser user;
     private FirebaseAuth auth;
     private DatabaseReference userRef;
     private String uid;
+    private double currentBalance;
+    private String stringBalance;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,6 +64,7 @@ public class CashIn extends AppCompatActivity {
         uid = user.getUid();
         DatabaseReference databaseRef = FirebaseDatabase.getInstance().getReference("Users");
         userRef = databaseRef.child(uid);
+        fetchData();
 
         qr.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -76,7 +79,20 @@ public class CashIn extends AppCompatActivity {
 
             }
         });
+        displayInput();
+    }
 
+    private void fetchData() {
+        userRef.child("balance").get().addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+                stringBalance = task.getResult().getValue(String.class);
+            } else {
+                Toast.makeText(CashIn.this, "Failed to fetch!", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    private void displayInput() {
         amountEdit.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
@@ -90,17 +106,17 @@ public class CashIn extends AppCompatActivity {
 
                 if (!input.isEmpty()) {
                     try {
-                        amount = Integer.parseInt(input);
+                        amount = Double.parseDouble(input);
 
                         Log.d("tangina", "amount: " + amount);
 
-                        if (amount > 1000000) {
+                        if (amount > 100000) {
                             AmountLayout.setVisibility(View.VISIBLE);
                             AmountTV.setText("Invalid amount!");
                             naH = false;
 
                         } else if (amount > 0) {
-                            DecimalFormat formatter = new DecimalFormat("#,###");
+                            DecimalFormat formatter = new DecimalFormat("#,###.###");
                             String formattedAmount = formatter.format(amount);
 
                             AmountTV.setText(formattedAmount);
@@ -126,33 +142,25 @@ public class CashIn extends AppCompatActivity {
                 }
             }
         });
-
     }
-    private void addCashToBalance(int addedAmount) {
-        userRef.child("balance").get().addOnCompleteListener(task -> {
-            if (task.isSuccessful()) {
-                String stringBalance = task.getResult().getValue(String.class);
-                if (stringBalance != null) {
-                    int currentBalance = Integer.parseInt(stringBalance);
-                    int newBalance = currentBalance + addedAmount;
-                    String strNewBalance = String.valueOf(newBalance);
 
-                    userRef.child("balance").setValue(strNewBalance).addOnCompleteListener(updateTask -> {
-                        if (updateTask.isSuccessful()) {
-                            amountEdit.setText("");
-                            Toast.makeText(CashIn.this, "Cash in done!", Toast.LENGTH_SHORT).show();
-                        } else {
-                            Toast.makeText(CashIn.this, "Failed", Toast.LENGTH_SHORT).show();
-                        }
-                    });
+    private void addCashToBalance(double addedAmount) {
+        if (stringBalance != null) {
+            currentBalance = Double.parseDouble(stringBalance);
+            double newBalance = currentBalance + addedAmount;
+            String strNewBalance = String.valueOf(newBalance);
+
+            userRef.child("balance").setValue(strNewBalance).addOnCompleteListener(updateTask -> {
+                if (updateTask.isSuccessful()) {
+                    amountEdit.setText("");
+                    Toast.makeText(CashIn.this, "Cash in done!", Toast.LENGTH_SHORT).show();
                 } else {
-                    Toast.makeText(CashIn.this, "Error!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(CashIn.this, "Failed", Toast.LENGTH_SHORT).show();
                 }
-            } else {
-                Toast.makeText(CashIn.this, "Failed to fetch!", Toast.LENGTH_SHORT).show();
-            }
-        });
-
+            });
+        } else {
+            Toast.makeText(CashIn.this, "Error!", Toast.LENGTH_SHORT).show();
+        }
     }
     public void onBackPressed() {
         Intent i = new Intent(CashIn.this, Home.class);

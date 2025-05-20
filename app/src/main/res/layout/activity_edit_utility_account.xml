@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@drawable/bg_24circleup"
+    tools:context=".EditUtilityAccount">
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        >
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:background="@drawable/round_bottom"
+            android:layout_marginRight="5dp"
+            android:layout_marginLeft="5dp"
+            android:paddingBottom="5dp">
+
+            <TextView
+                android:id="@+id/utilityType"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Utility Account"
+                android:textColor="@color/white"
+                android:textStyle="bold"
+                android:textSize="25sp"
+                android:gravity="center"
+                android:paddingTop="30dp"
+                android:paddingBottom="20dp"/>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            >
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="20dp"
+                android:orientation="vertical">
+                <TextView
+                    android:id="@+id/accName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Name"
+                    android:textStyle="bold"
+                    android:textSize="25sp" />
+                <TextView
+                    android:id="@+id/utilityID"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="ID: 000 000 000"
+                    android:textSize="18sp"/>
+                <TextView
+                    android:id="@+id/utilityBiller"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Biller:"
+                    android:textSize="18sp"/>
+                <TextView
+                    android:id="@+id/utilityStatus"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Status: Active"
+                    android:textSize="18sp"/>
+
+            </LinearLayout>
+            <Space
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"/>
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="20dp"
+                android:orientation="vertical"
+                android:layout_gravity="center"
+                android:gravity="center">
+                <TextView
+                    android:id="@+id/dueAmount"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="₱ 00.00"
+                    android:textSize="25sp" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="upcoming due"
+                    android:textSize="15sp"/>
+            </LinearLayout>
+            <Button
+                android:id="@+id/btnPayNow"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
+                android:layout_marginBottom="10dp"
+                android:background="@drawable/btn_rounded_blue"
+                android:text="Pay Now"
+                android:textColor="@color/white"
+                android:layout_gravity="center"/>
+            <Button
+                android:id="@+id/btnTransactions"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
+                android:background="@drawable/btn_rounded_gray"
+                android:text="Transaction History"
+                android:textColor="@color/black"
+                android:layout_gravity="center"/>
+            <TextView
+                android:id="@+id/btnDeleteUtility"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/red"
+                android:textStyle="bold"
+                android:padding="10dp"
+                android:text="Unlink Account"
+                android:textSize="19sp"
+                android:gravity="center"
+                android:layout_gravity="center"
+                android:layout_margin="10dp"/>
+        </LinearLayout>
+    </LinearLayout>
+    </ScrollView>
+</LinearLayout>

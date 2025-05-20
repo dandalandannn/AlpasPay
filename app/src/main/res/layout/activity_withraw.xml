@@ -100,7 +100,7 @@
                 android:background="@drawable/btn_rounded_gray"
                 android:elevation="5dp"
                 android:hint="Enter Amount"
-                android:inputType="number"
+                android:inputType="numberDecimal"
                 android:padding="10dp" />
             <Button
                 android:id="@+id/btnWithraw"

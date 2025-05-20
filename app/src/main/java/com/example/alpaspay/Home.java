@@ -48,11 +48,11 @@ public class Home extends AppCompatActivity {
     private LinearLayout btnWithdraw;
     private LinearLayout btnAccountSettings;
     private LinearLayout btnHelpdesk;
-    private String balance;
+    private double balance;
+    private String balanceForDisplay;
 
     ArrayList<DueCardObj> dueCardObjs = new ArrayList<>();
     private ListView dueList;
-    private Button btnDueCardPayNow;
     private DueCardListAdapter dueCardListAdapter;
 
 
@@ -79,20 +79,49 @@ public class Home extends AppCompatActivity {
 
         dueList = findViewById(R.id.dueList);
 
+        fetchData();
+
+        btnCashIn.setOnClickListener(v -> handleCashIn());
+        btnTransactions.setOnClickListener(v -> handleTransaction());
+        btnWithdraw.setOnClickListener(v -> handleWithraw());
+        btnAccountSettings.setOnClickListener(v -> handleAccSettings());
+        btnHelpdesk.setOnClickListener(v -> handleHelpDesk());
+
+        btnLogoutYes.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(Home.this, Login.class));
+                finish();
+            }
+        });
+        btnLogOutNo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                logOutCardView.setVisibility(View.GONE);
+            }
+        });
+    }
+
+    private void fetchData() {
         user = FirebaseAuth.getInstance().getCurrentUser();
         if (user != null) {
             userID = user.getUid();
             ref = FirebaseDatabase.getInstance().getReference("Users").child(userID);
 
-            ref.addListenerForSingleValueEvent(new ValueEventListener() {
+            ref.addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
 
-                    balance = snapshot.child("balance").getValue(String.class);
-                    if (balance == null || balance.trim().isEmpty()) {
-                        balance = "0";
+                    String balanceStr = snapshot.child("balance").getValue(String.class);
+                    try {
+                        balance = balanceStr != null ? Double.parseDouble(balanceStr) : 0.0;
+                    } catch (NumberFormatException e) {
+                        balance = 0.0;
                     }
-                    balanceTextView.setText(balance);
+
+                    DecimalFormat formatter = new DecimalFormat("#,###.###");
+                    balanceForDisplay = formatter.format(balance);
+                    balanceTextView.setText(balanceForDisplay);
 
                     int numberOfChildren = (int) snapshot.child("Utilities").getChildrenCount();
                     Toast.makeText(getApplicationContext(), "Number of children" + numberOfChildren, Toast.LENGTH_SHORT).show();
@@ -106,12 +135,12 @@ public class Home extends AppCompatActivity {
                         String dueCardDueDate = snapshot.child("Utilities").child(String.valueOf(i)).child("dueDate").getValue(String.class);
 
                         if (utilityType != null) {
-                            DueCardObj dueCardObj = new DueCardObj(utilityType, dueCardAmount, dueCardDueDate, balance, utilityAccID, utilityAccName);
+                            DueCardObj dueCardObj = new DueCardObj(utilityType, dueCardAmount, dueCardDueDate, balanceForDisplay, utilityAccID, utilityAccName);
                             dueCardObjs.add(dueCardObj);
                         }
                         dueCardListAdapter = new DueCardListAdapter(Home.this, dueCardObjs);
                         dueList.setAdapter(dueCardListAdapter);
-                        
+
                         ListAdapter listAdapter = new ListAdapter() {
                             @Override
                             public boolean areAllItemsEnabled() {
@@ -182,26 +211,6 @@ public class Home extends AppCompatActivity {
                 }
             });
         }
-
-        btnCashIn.setOnClickListener(v -> handleCashIn());
-        btnTransactions.setOnClickListener(v -> handleTransaction());
-        btnWithdraw.setOnClickListener(v -> handleWithraw());
-        btnAccountSettings.setOnClickListener(v -> handleAccSettings());
-        btnHelpdesk.setOnClickListener(v -> handleHelpDesk());
-
-        btnLogoutYes.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(Home.this, Login.class));
-                finish();
-            }
-        });
-        btnLogOutNo.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                logOutCardView.setVisibility(View.GONE);
-            }
-        });
     }
 
     private void handleCashIn() {
@@ -215,7 +224,7 @@ public class Home extends AppCompatActivity {
 
     private void handleWithraw() {
         Intent i = new Intent(Home.this, WithrawActivity.class);
-        i.putExtra("balance", balance);
+        i.putExtra("balance", balanceForDisplay);
         startActivity(i);
     }
 
@@ -229,5 +238,10 @@ public class Home extends AppCompatActivity {
 
     public void onBackPressed() {
         logOutCardView.setVisibility(View.VISIBLE);
+    }
+
+    protected void onResume() {
+        super.onResume();
+        fetchData();
     }
 }

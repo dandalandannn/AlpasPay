@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@drawable/bg_14circleup">
 
 <LinearLayout
     android:id="@+id/main"
@@ -12,7 +14,6 @@
     android:layout_height="match_parent"
     android:layout_gravity="center_horizontal"
     android:orientation="vertical"
-    android:background="@drawable/bg_14circleup"
     tools:context=".Register">
 
     <TextView
@@ -93,7 +94,7 @@
         android:layout_height="40dp"
         android:layout_gravity="center"
         android:layout_margin="5dp"
-        android:hint="Ex. 000 000 000 000"
+        android:hint="Ex. 000 000 000"
         android:inputType="number"
         android:singleLine="true"
         android:textSize="16sp" />
@@ -172,4 +173,4 @@
         />
 
 </LinearLayout>
-</FrameLayout>
+</LinearLayout>

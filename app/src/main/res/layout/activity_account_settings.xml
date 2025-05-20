@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@drawable/bg_14circleup"
+    android:background="@drawable/bg_24circleup"
     tools:context=".AccountSettings">
 
     <FrameLayout
@@ -62,22 +62,180 @@
 
         </androidx.cardview.widget.CardView>
     </FrameLayout>
-
-    <TextView
+    <FrameLayout
+        android:id="@+id/utilityForm"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Account Settings"
-        android:textColor="@color/white"
-        android:textStyle="bold"
-        android:textSize="25sp"
-        android:gravity="center"
-        android:paddingTop="30dp"
-        android:paddingBottom="20dp"/>
+        android:layout_height="match_parent"
+        android:background="#C3000000"
+        android:clickable="true"
+        android:visibility="gone">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:padding="20dp"
+                android:layout_marginTop="70dp"
+                android:background="@drawable/round_top">
+
+                <ImageView
+                    android:id="@+id/btnCloseForm"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:src="@drawable/close" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Alpaspay Utility Setup"
+                    android:textStyle="bold"
+                    android:textColor="@color/black"
+                    android:paddingLeft="25dp"
+                    android:paddingTop="10dp"
+                    android:textSize="20sp"/>
+
+                <TextView
+                    android:id="@+id/utilityPrompt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Select a utility:"
+                    android:textColor="@color/gray"
+                    android:paddingLeft="25dp"
+                    android:paddingRight="15dp"
+                    />
+
+                <RadioGroup
+                    android:id="@+id/options"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="20dp"
+                    >
+                    <RadioButton
+                        android:id="@+id/radio_option1"
+                        android:layout_width="95dp"
+                        android:layout_height="wrap_content"
+                        android:text="Kuryente" />
+
+                    <RadioButton
+                        android:id="@+id/radio_option2"
+                        android:layout_width="95dp"
+                        android:layout_height="wrap_content"
+                        android:text="Internet" />
+
+                    <RadioButton
+                        android:id="@+id/radio_option3"
+                        android:layout_width="95dp"
+                        android:layout_height="wrap_content"
+                        android:text="Tubig" />
+                </RadioGroup>
+                <TextView
+                    android:id="@+id/accIdPrompt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Enter utility account ID:"
+                    android:paddingLeft="25dp"
+                    android:paddingTop="5dp"/>
+
+                <EditText
+                    android:id="@+id/account_id"
+                    android:layout_width="300dp"
+                    android:layout_height="40dp"
+                    android:layout_gravity="center"
+                    android:layout_margin="5dp"
+                    android:hint="Ex. 000 000 000"
+                    android:inputType="number"
+                    android:singleLine="true"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:id="@+id/namePrompt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Enter name registered:"
+                    android:paddingLeft="25dp"
+                    android:paddingTop="5dp"/>
+
+                <EditText
+                    android:id="@+id/firstNameField"
+                    android:layout_width="300dp"
+                    android:layout_height="40dp"
+                    android:layout_margin="5dp"
+                    android:layout_gravity="center"
+                    android:hint="First name"
+                    android:textSize="16sp"
+                    android:singleLine="true"/>
+                <EditText
+                    android:id="@+id/lastNameField"
+                    android:layout_width="300dp"
+                    android:layout_height="40dp"
+                    android:layout_margin="5dp"
+                    android:layout_gravity="center"
+                    android:hint="Last name"
+                    android:textSize="16sp"
+                    android:singleLine="true"/>
+
+                <Button
+                    android:id="@+id/btn_validID"
+                    android:layout_width="300dp"
+                    android:layout_height="40dp"
+                    android:text="Upload a valid ID"
+                    android:layout_gravity="center"
+                    android:textColor="@color/black" />
+                <Space
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1" />
+
+                <TextView
+                    android:layout_width="300dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:textSize="10sp"
+                    android:justificationMode="inter_character"
+                    android:paddingTop="5dp"
+                    android:text="To verify your account, we need some of your information. We will ensure that your data is kept secure and used only for verification purposes."
+                    android:textColor="@color/gray" />
+
+                <Button
+                    android:id="@+id/btn_continueToSignUp"
+                    android:layout_width="325dp"
+                    android:layout_height="40dp"
+                    android:text="Continue"
+                    android:layout_gravity="center"
+                    android:textColor="@color/white"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/btn_rounded_blue"
+                    />
+
+            </LinearLayout>
+    </FrameLayout>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:paddingTop="35dp">
+        android:background="@drawable/round_bottom"
+        android:layout_marginRight="5dp"
+        android:layout_marginLeft="5dp"
+        android:paddingBottom="5dp"
+        android:gravity="center">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Account Settings"
+            android:textColor="@color/white"
+            android:textStyle="bold"
+            android:textSize="25sp"
+            android:gravity="center"
+            android:paddingTop="30dp"
+            android:paddingBottom="20dp"/>
+
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
 
         <TextView
             android:layout_width="wrap_content"
@@ -129,6 +287,7 @@
     </androidx.cardview.widget.CardView>
 
     <TextView
+        android:id="@+id/linkedAccTV"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Linked Utility Accounts:"
@@ -136,10 +295,6 @@
         android:textSize="18sp"
         android:paddingTop="20dp"
         android:paddingLeft="30dp"/>
-
-    <androidx.cardview.widget.CardView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
 
         <TextView
             android:id="@+id/btnKuryente"
@@ -151,13 +306,8 @@
             android:paddingBottom="10dp"
             android:paddingLeft="30dp"
             android:textSize="19sp"
+            android:visibility="gone"
             />
-
-    </androidx.cardview.widget.CardView>
-    <androidx.cardview.widget.CardView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
         <TextView
             android:id="@+id/btnInternet"
             android:layout_width="match_parent"
@@ -168,13 +318,8 @@
             android:paddingBottom="10dp"
             android:paddingLeft="30dp"
             android:textSize="19sp"
+            android:visibility="gone"
             />
-
-    </androidx.cardview.widget.CardView>
-    <androidx.cardview.widget.CardView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
         <TextView
             android:id="@+id/btnTubig"
             android:layout_width="match_parent"
@@ -185,9 +330,19 @@
             android:paddingBottom="10dp"
             android:paddingLeft="30dp"
             android:textSize="19sp"
+            android:visibility="gone"
             />
-
-    </androidx.cardview.widget.CardView>
+        <TextView
+            android:id="@+id/btnAddUtility"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Add account"
+            android:textStyle="bold"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:textSize="19sp"
+            android:gravity="center"
+            />
 
     <Space
     android:layout_width="wrap_content"

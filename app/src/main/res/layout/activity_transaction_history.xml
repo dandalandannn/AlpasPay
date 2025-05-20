@@ -6,122 +6,72 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@drawable/bg_14circleup"
+    android:background="@drawable/bg_24circleup"
     tools:context=".TransactionHistory">
 
-    <FrameLayout
-        android:id="@+id/logOutCardView"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="#C3000000"
-        android:visibility="gone"
-        android:clickable="true">
-
-        <androidx.cardview.widget.CardView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_margin="30dp"
-            app:cardCornerRadius="20dp"
-            >
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical"
-                android:padding="20dp">
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Are you sure you want to log out?"
-                    android:textStyle="bold"
-                    android:textSize="20sp"
-                    android:paddingLeft="10dp"
-                    android:paddingBottom="20dp"
-                    />
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:layout_gravity="end">
-                    <TextView
-                        android:id="@+id/btnLogoutYes"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Yes"
-                        android:textSize="18sp"
-                        android:padding="10dp"/>
-                    <TextView
-                        android:id="@+id/btnLogOutNo"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Cancel"
-                        android:textSize="18sp"
-                        android:padding="10dp"/>
-                </LinearLayout>
-            </LinearLayout>
-
-        </androidx.cardview.widget.CardView>
-    </FrameLayout>
-
-    <TextView
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:background="@drawable/round_bottom"
+        android:layout_marginRight="5dp"
+        android:layout_marginLeft="5dp"
+        android:paddingBottom="5dp"
+        android:gravity="center">
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:gravity="center"
-        android:paddingTop="30dp"
-        android:paddingBottom="65dp"
         android:text="Transaction History"
         android:textColor="@color/white"
-        android:textSize="25sp"
-        android:textStyle="bold" />
+        android:textSize="15sp"
+        android:textStyle="bold"
+        android:padding="20dp"/>
 
+        <Space
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"/>
+
+    <LinearLayout
+        android:id="@+id/btnCalendar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:layout_gravity="center">
+
+        <ImageView
+            android:layout_width="37dp"
+            android:layout_height="36dp"
+            android:src="@drawable/calendar_vtr"
+            app:tint="@color/white"
+            android:layout_margin="20dp"/>
+
+    </LinearLayout>
+
+    </LinearLayout>
+
+    <FrameLayout
+        android:id="@+id/calendar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        >
+
+        <CalendarView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+    </FrameLayout>
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-
         <LinearLayout
-            android:id="@+id/btnCalendar"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
 
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:gravity="center"
-                android:layout_gravity="center">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="View Calendar"
-                    android:textStyle="bold"
-                    android:textSize="20sp"
-                    android:padding="13sp"
-                    android:gravity="start"
-                    android:textColor="@color/black"/>
-
-                <ImageView
-                    android:layout_width="37dp"
-                    android:layout_height="36dp"
-                    android:layout_marginLeft="20dp"
-                    android:background="@drawable/calendar_vtr"
-                    app:tint="@color/blue"/>
-
-            </LinearLayout>
-
-            <FrameLayout
-                android:id="@+id/calendar"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:visibility="gone"
-                >
-
-                <CalendarView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"/>
-
-            </FrameLayout>
 
             <TextView
                 android:layout_width="wrap_content"

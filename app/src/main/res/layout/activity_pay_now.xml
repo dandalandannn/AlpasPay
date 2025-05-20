@@ -36,7 +36,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Account balance"
+                android:text="Account balance: "
                 android:textAlignment="textStart"
                 android:textColor="@color/white"
                 android:textSize="20dp"

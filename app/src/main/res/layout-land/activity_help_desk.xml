@@ -1,0 +1,222 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@drawable/bg_24circleup">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone">
+    </FrameLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:background="@drawable/round_bottom"
+        android:layout_marginRight="5dp"
+        android:layout_marginLeft="5dp"
+        android:paddingBottom="5dp"
+        android:gravity="center">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Customer Support"
+            android:textStyle="bold"
+            android:textColor="@color/white"
+            android:textSize="30sp"
+            android:gravity="center"
+            android:padding="10dp"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Frequently Asked Questions (FAQs)"
+                    android:textColor="@color/blue"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginLeft="20dp"/>
+
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        app:cardCornerRadius="10dp"
+        android:elevation="20dp"
+        android:layout_marginLeft="25dp"
+        android:layout_marginRight="25dp">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <TextView
+            android:id="@+id/q1TV"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="5sp"
+            android:drawableRight="@drawable/arrow_kanan"
+            android:text="How do I add new service provider?"
+            android:textColor="@color/blue"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+            <TextView
+            android:id="@+id/a1TV"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="To add a new service provider, go to Account Settings > Linked Utility Account, then tap Add to utility service you want to add. Enter the required details and follow the prompts to link the service."
+            android:textSize="15sp"
+            android:layout_margin="5sp"
+            android:visibility="gone"/>
+
+            <TextView
+                android:id="@+id/q2TV"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5sp"
+                android:drawableRight="@drawable/arrow_kanan"
+                android:text="How do I view and track my bill?"
+                android:textColor="@color/blue"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/a2TV"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="To track your bill, navigate Main Menu > Transaction History to see your history of payment and tap Calendar to track what is your due date for the month if it is paid or unpaid."
+                android:textSize="15sp"
+                android:layout_margin="5sp"
+                android:visibility="gone"/>
+
+            <TextView
+                android:id="@+id/q3TV"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5sp"
+                android:drawableRight="@drawable/arrow_kanan"
+                android:text="Why was my payment unsuccessful?"
+                android:textColor="@color/blue"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/a3TV"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Payments may fail due to insufficient funds, incorrect account number details, already past due, or network issues. Please check your payment information and try again. If problem persist, contact our Support Team."
+                android:textSize="15sp"
+                android:layout_margin="5sp"
+                android:visibility="gone"/>
+
+            <TextView
+                android:id="@+id/q4TV"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5sp"
+                android:drawableRight="@drawable/arrow_kanan"
+                android:text="How do contact my service provider"
+                android:textColor="@color/blue"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/a4TV"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="From Main Menu > Help > Category, then click General. You will see the contact information of your Service Provider and the Support Team Information."
+                android:textSize="15sp"
+                android:layout_margin="5sp"
+                android:visibility="gone"/>
+
+            <TextView
+                android:id="@+id/q5TV"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5sp"
+                android:drawableRight="@drawable/arrow_kanan"
+                android:text="How can I create new account? "
+                android:textColor="@color/blue"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/a5TV"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="To delete your account, go to Account Settings > Delete Account. You will be asked to confirm your identity (via password or email confirmation).
+\n\n⚠️ Note: Account deletion is permanent and cannot be undone. If you’re having issues or concerns, we recommend contacting our support team before proceeding."
+                android:textSize="15sp"
+                android:layout_margin="5sp"
+                android:visibility="gone"/>
+            <TextView
+                android:id="@+id/q6TV"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5sp"
+                android:drawableRight="@drawable/arrow_kanan"
+                android:text="How can I update my profile information?"
+                android:textColor="@color/blue"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/a6TV"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Go to Account Settings > Security then tap Edit. After you edit it, press Save Changes to apply what you have changed. You may be required to verify your identity for certain updates."
+                android:textSize="15sp"
+                android:layout_margin="5sp"
+                android:visibility="gone"/>
+
+            <TextView
+                android:id="@+id/q7TV"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5sp"
+                android:drawableRight="@drawable/arrow_kanan"
+                android:text="How do I report security issue?"
+                android:textColor="@color/blue"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/a7TV"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="If you notice any suspicious activity, go to Help > Category > Security > Report an Issue."
+                android:textSize="15sp"
+                android:layout_margin="5sp"
+                android:visibility="gone"/>
+
+
+
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+            </LinearLayout>
+        </ScrollView>
+    </LinearLayout>
+</LinearLayout>

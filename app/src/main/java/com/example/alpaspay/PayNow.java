@@ -2,6 +2,7 @@ package com.example.alpaspay;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -11,6 +12,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+
+import java.text.DecimalFormat;
 
 public class PayNow extends AppCompatActivity {
 
@@ -52,7 +55,12 @@ public class PayNow extends AppCompatActivity {
 
         utilityTypeTV.setText(utilityType);
         utilityTypeInsideTV.setText(utilityType);
-        balanceTV.setText(balance);
+
+        double balanceDouble = Double.parseDouble(balance);
+        DecimalFormat formatter = new DecimalFormat("#,###.###");
+        String balanceForDisplay = formatter.format(balanceDouble);
+
+        balanceTV.setText(balanceForDisplay);
         AccNumTV.setText(utilityAccID);
         AccNameTV.setText(utilityAccName);
         DueDateTV.setText(dueCardDueDate);
@@ -66,13 +74,15 @@ public class PayNow extends AppCompatActivity {
         });
     }
     private void handleConfirmPayment() {
+
+
         Intent i = new Intent(PayNow.this, Receipt.class);
-        i.putExtra("utilityType", utilityType);
-        i.putExtra("dueCardAmount", dueCardAmount);
-        i.putExtra("dueCardDueDate", dueCardDueDate);
-        i.putExtra("balance", balance);
+        i.putExtra("TransactionType", utilityType);
         i.putExtra("utilityAccID", utilityAccID);
         i.putExtra("utilityAccName", utilityAccName);
+        i.putExtra("utilityDueDate", dueCardDueDate);
+        i.putExtra("amount", dueCardAmount);
+        i.putExtra("transactionType", "Payment");
 
         startActivity(i);
         finish();

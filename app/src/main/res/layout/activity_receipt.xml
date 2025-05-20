@@ -23,7 +23,7 @@
             android:paddingBottom="20dp">
 
             <TextView
-                android:id="@+id/utilityNameTextView"
+                android:id="@+id/TransactionTypeTV"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Utility Receipt"
@@ -53,129 +53,136 @@
                 android:padding="24dp">
 
                 <TextView
-                    android:id="@+id/utilityNameTextViewInside"
+                    android:id="@+id/TransactionTypeInsideTV"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Utility name"
+                    android:text="Transaction Type"
                     android:textColor="@color/blue"
                     android:textSize="20sp"
                     android:textStyle="bold" />
 
                 <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical">
-
-
-                </LinearLayout>
-
-                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal">
+                    android:orientation="vertical"
+                    android:layout_marginTop="10dp">
 
                     <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical"
-                        android:paddingTop="50dp"
-                        android:paddingBottom="50dp">
-
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal"
+                        android:layout_marginBottom="40dp">
                         <TextView
+                            android:id="@+id/accEmailTV"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:paddingBottom="10dp"
+                            android:text="myemail@email.com"
+                            android:textColor="@color/blue"
+                            android:textSize="12sp"
+                            android:textStyle="bold" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/paymentNumber"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal"
+                        android:layout_marginBottom="10dp">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
                             android:text="Account Number:"
                             android:textColor="@color/blue"
                             android:textSize="12sp"
                             android:textStyle="bold" />
 
                         <TextView
+                            android:id="@+id/utilityAccIDTV"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:paddingBottom="10dp"
+                            android:gravity="end"
+                            android:text="000 000 000"
+                            android:textColor="@color/blue"
+                            android:textSize="12sp"
+                            android:textStyle="bold" />
+                    </LinearLayout>
+                    <LinearLayout
+                        android:id="@+id/paymentName"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal"
+                        android:layout_marginBottom="10dp">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
                             android:text="Account Name:"
                             android:textColor="@color/blue"
                             android:textSize="12sp"
                             android:textStyle="bold" />
 
                         <TextView
+                            android:id="@+id/utilityAccNameTV"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:paddingBottom="10dp"
+                            android:gravity="end"
+                            android:text="Firstname Lastname"
+                            android:textColor="@color/blue"
+                            android:textSize="12sp"
+                            android:textStyle="bold" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/paymentDue"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal"
+                        android:layout_marginBottom="10dp">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
                             android:text="Due Date:"
                             android:textColor="@color/blue"
                             android:textSize="12sp"
                             android:textStyle="bold" />
 
                         <TextView
+                            android:id="@+id/utilityDueDateTV"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:paddingBottom="10dp"
+                            android:gravity="end"
+                            android:text="00-00-0000"
+                            android:textColor="@color/blue"
+                            android:textSize="12sp"
+                            android:textStyle="bold" />
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal"
+                        android:layout_marginBottom="10dp">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
                             android:text="Amount:"
                             android:textColor="@color/blue"
                             android:textSize="12sp"
                             android:textStyle="bold" />
 
+                        <TextView
+                            android:id="@+id/amountTV"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="end"
+                            android:text="default amount"
+                            android:textColor="@color/blue"
+                            android:textSize="12sp"
+                            android:textStyle="bold" />
                     </LinearLayout>
 
-                    <Space
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1" />
-
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical"
-                        android:paddingTop="50dp"
-                        android:paddingBottom="50dp">
-
-                        <TextView
-                            android:id="@+id/AccNumTV"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:paddingBottom="10dp"
-                            android:text="000 000 000"
-                            android:textAlignment="textEnd"
-                            android:textColor="@color/blue"
-                            android:textSize="12sp"
-                            android:textStyle="bold" />
-
-                        <TextView
-                            android:id="@+id/AccNameTV"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:paddingBottom="10dp"
-                            android:text="Firstname Lastnname"
-                            android:textAlignment="textEnd"
-                            android:textColor="@color/blue"
-                            android:textSize="12sp"
-                            android:textStyle="bold" />
-
-                        <TextView
-                            android:id="@+id/DueDateTV"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:paddingBottom="10dp"
-                            android:text="mm/dd/yyyy"
-                            android:textAlignment="textEnd"
-                            android:textColor="@color/blue"
-                            android:textSize="12sp"
-                            android:textStyle="bold" />
-
-                        <TextView
-                            android:id="@+id/AmountTV"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:paddingBottom="10dp"
-                            android:text="₱ 0"
-                            android:textAlignment="textEnd"
-                            android:textColor="@color/blue"
-                            android:textSize="12sp"
-                            android:textStyle="bold" />
-
-                    </LinearLayout>
                 </LinearLayout>
 
                 <Space

@@ -61,7 +61,7 @@ public class WithrawActivity extends AppCompatActivity {
             public void onClick(View v) {
                 String inputAmount = amountEdit.getText().toString().trim();
                 if (!inputAmount.isEmpty()){
-                    int minusAmount = Integer.parseInt(inputAmount);
+                    double minusAmount = Double.parseDouble(inputAmount);
                     if (minusAmount>0){
                         minusCashToBalance(minusAmount);
                         balanceTV.setText("Balance: ₱" + balance);
@@ -71,17 +71,17 @@ public class WithrawActivity extends AppCompatActivity {
         });
 
     }
-    private void minusCashToBalance(int minusAmount) {
+    private void minusCashToBalance(double minusAmount) {
         userRef.child("balance").get().addOnCompleteListener(task -> {
             if (task.isSuccessful()) {
                 String stringBalance = task.getResult().getValue(String.class);
                 if (stringBalance != null) {
-                    int currentBalance = Integer.parseInt(stringBalance);
+                    double currentBalance = Double.parseDouble(stringBalance);
                     if (currentBalance<minusAmount){
                         Toast.makeText(WithrawActivity.this, "Not enough balance", Toast.LENGTH_SHORT).show();
                         return;
                     }
-                    int newBalance = currentBalance - minusAmount;
+                    double newBalance = currentBalance - minusAmount;
                     String strNewBalance = String.valueOf(newBalance);
 
                     userRef.child("balance").setValue(strNewBalance).addOnCompleteListener(updateTask -> {
